@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+// Suma de cuadrados: S = 1^2 + 2^2 + ... + N^2
+int sum2(int n);
+
+int main()
+{
+    cout << "Ingresa el numero para la serie: ";
+
+    int num;
+    cin >> num;
+
+    cout << "La suma de cuadrados hasta " << num << " es " << sum2(num);
+
+    return 0;
+}
+
+int sum2(int n)
+{
+    if (n == 1)
+        return 1;
+
+    return n * n + sum2(n - 1);
+}
