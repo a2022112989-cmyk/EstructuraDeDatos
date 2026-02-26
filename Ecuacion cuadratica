@@ -1,0 +1,77 @@
+// Ecuacion cuadratica.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+//Prototipos de funciones
+double discriminante(int a, int b, int c);
+double unica(int b, int a);
+double solucionreal(int a, int b, int c, double d, double &x2);
+double solucionimag(int a, int b, int c, double d, double &x2);
+
+int main()
+{
+    int a, b, c;
+    double d, x1, x2;
+   
+    cout << "Ingrese a:";
+    cin >> a;
+    cout << "Ingrese b:";
+    cin >> b;
+    cout << "Ingrese c:";
+    cin >> c;
+
+    //Llamada la funcion
+    d = discriminante(a, b, c);
+
+    if (d == 0) {
+        x1 = unica(b, a);
+        cout << "Solucion unica:" << x1;
+    }
+    else
+        if (d > 0) {
+            x1 = solucionreal(a, b, c, d, x2);
+            cout << "Las soluciones reales son:" << endl;
+            cout << "x1=" << x1 << endl;
+            cout << "x2=" << x2 << endl;
+        }
+        else {
+            x1 = solucionimag(a, b, c, d, x2);
+            cout << "Las soluciones imaginarias son:" << endl;
+            cout << "x1=" << x1 << "+"<<x2<<"i"<<endl;
+            cout << "x2=" << x1 << "-"<<x2<<"i"<<endl;
+        }
+
+}
+
+//Declaracion de funciones
+double discriminante(int a, int b, int c) {
+    double d = b * b -( 4 * a * c);
+    return d;
+}
+double unica(int b, int a) {
+    double x1 = -b / (2 * a);
+    return x1;
+}
+double solucionreal(int a, int b, int c, double d, double& x2) {
+    double x1 = (-b + sqrt(d)) / (2 * a);
+    x2 = (-b - sqrt(d)) / (2 * a);
+    return x1;
+}
+double solucionimag(int a, int b, int c, double d, double& x2) {
+    double x1 = -b / (2 * a);
+    x2 = sqrt(- d) / (2 * a);
+    return x1;
+}
+
+// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
+// Depurar programa: F5 o menú Depurar > Iniciar depuración
+
+// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
+//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
+//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
+//   4. Use la ventana Lista de errores para ver los errores
+//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
+//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
