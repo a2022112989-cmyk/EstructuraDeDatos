@@ -1,0 +1,57 @@
+def factorial(n):
+    """Calcula el factorial de N: N! = n * (n-1) * ... * 1"""
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+def suma_cuadrados(n):
+    """Calcula la suma de cuadrados: 1^2 + 2^2 + ... + n^2"""
+    if n == 0:
+        return 0
+    return (n ** 2) + suma_cuadrados(n - 1)
+
+def serie_horner(x, n):
+    """
+    Calcula x + x^2 + ... + x^n usando la lógica de Horner:
+    x * (1 + x * (1 + ...))
+    """
+    if n == 1:
+        return x
+    
+    return x * (1 + serie_horner(x, n - 1))
+
+def menu():
+    opcion = -1
+    while opcion != '0':
+        print("\n   MENÚ DE RECURSIVIDAD")
+        print("1. Factorial de N")
+        print("2. Suma de Cuadrados (1² + ... + N²)")
+        print("3. Serie de Horner (x + x² + ... + xⁿ)")
+        print("0. Salir")
+        
+        opcion = input("\nSelecciona una opción (1-4): ")
+
+        if opcion == '1':
+            n = int(input("Ingresa el valor de N: "))
+            print(f"-> Resultado: {factorial(n)}")
+        
+        elif opcion == '2':
+            n = int(input("Ingresa el valor de N: "))
+            print(f"-> Resultado: {suma_cuadrados(n)}")
+        
+        elif opcion == '3':
+            x = float(input("Ingresa el valor de X (real): "))
+            n = int(input("Ingresa el exponente N (entero): "))
+            if n < 1:
+                print("N debe ser al menos 1.")
+            else:
+                print(f"-> Resultado de la serie: {serie_horner(x, n)}")
+        
+        elif opcion == '0':
+            print("Saliendo...")
+        
+        else:
+            print("Opción no válida.")
+
+if __name__ == "__main__":
+    menu()
