@@ -1,0 +1,52 @@
+#include <iostream>
+
+using namespace std;
+
+// Definimos un tamaño máximo para no complicarnos con memoria dinámica
+const int MAX = 100;
+
+class Vector {
+public:
+    int datos[MAX];
+    int n;
+
+    // Método para leer los datos
+    void leerDatos() {
+        cout << "Cuantos elementos (max " << MAX << "): ";
+        cin >> n;
+        for (int i = 0; i < n; i++) {
+            cout << "Dato [" << i << "]: ";
+            cin >> datos[i]; // Guardamos directo en la posición i
+        }
+    }
+
+    // Método para mostrar
+    void mostrar() {
+        for (int i = 0; i < n; i++) {
+            cout << datos[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Vector original;
+    Vector revertido;
+
+    original.leerDatos();
+
+    // Lógica simple de reversión
+    revertido.n = original.n; // Tienen el mismo tamaño
+    for (int i = 0; i < original.n; i++) {
+        // El truco de la resta para invertir los índices
+        revertido.datos[i] = original.datos[original.n - 1 - i];
+    }
+
+    cout << "\nOriginal: ";
+    original.mostrar();
+
+    cout << "Revertido: ";
+    revertido.mostrar();
+
+    return 0;
+}
