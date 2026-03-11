@@ -14,6 +14,7 @@ void main() {
 
 	int vec[MAX], n, op;
 	vector vector1;  // Declarando el objeto vector1 de la clase vector
+	vector vector2;
 	do {
 		cout << "Ingrese el tamanio del vector : ";
 		cin >> n;
@@ -39,8 +40,10 @@ void main() {
 			vector1.ordenarVector(vec, n);
 			break;
 		case 4:
-			vector1.invertirVector(vec, n);
-			break;
+			vector2 = vector1.invertirVector();
+            cout << "Invertido: ";
+            vector2.mostrarVector();
+            break;
 		case 0:
 			cout << "Salir" << endl;
 			break;
