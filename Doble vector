@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+#define MAX 100
+
+void cargar (string nombre[], int nota [], int n);
+void ordenar(string nombre[], int nota [], int n);
+void mostrar(string nombre[], int nota [], int n);
+int main()
+{
+    string name[MAX];
+    int notes[MAX];
+    int n;
+    
+    do {
+        cout<<"Ingrese el nro de estudiantes: ";
+        cin>>n;
+    } while(n<0||n>MAX);
+
+    cargar(name, notes, n);
+    ordenar(name, notes, n);
+    mostrar(name, notes, 3);
+    return 0;
+}
+
+void cargar (string nombre[], int nota [], int n) {
+    cout<<"Ingresa los datos: ";
+    for(int i=0; i<n; i++) {
+        cout<<"Nombre ["<<i<<"]: ";
+        cin>>nombre[i];
+        cout<<"Nota ["<<i<<"]: ";
+        cin>>nota[i];
+    }
+    
+}
+
+void ordenar(string nombre[], int nota [], int n){
+    int aux;
+    string nombreAux;
+    for(int i=0;i<n-1;i++){
+        for(int j=i+1;j<n;j++) {
+            if(nota[i]<nota[j]){
+                aux=nota[j];
+                nombreAux=nombre[j];
+                nota[j]=nota[i];
+                nombre[j]=nombre[i];
+                nota[i]=aux;
+                nombre[i]=nombreAux;
+            }
+            
+        }
+    }
+    
+}
+
+void mostrar(string nombre[], int nota [], int n){
+    cout<<"Las tres mejores notas son: "<<endl;
+    cout<<"Nombre\t nota"<<endl;
+    for(int i=0; i<n; i++) {
+        cout<<nombre[i]<<"\t"<<nota[i]<<endl;
+    }
+    
+    
+}
