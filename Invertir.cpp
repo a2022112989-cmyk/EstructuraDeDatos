@@ -43,9 +43,11 @@ void vector::ordenarVector(int vec[], int n) {
 }
 
 int vector::invertirVector(int vec[], int n) {
-	int revertido[];
+	vector revertido;
+	revertido.n=n;
 	for (int i = 0; i < .n; i++) {
 		// El truco de la resta para invertir los índices
-		revertido.datos[i] = original.datos[original.n - 1 - i];
-	}
+		revertido.vec[i] = vec[n - 1 - i];
+	} 
+	return revertido;
 }
