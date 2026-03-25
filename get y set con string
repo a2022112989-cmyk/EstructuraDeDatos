@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class usuario {
+    private: // atributo
+        string contraseñaOfc;
+    public: // metodos
+        usuario();
+        // getter y setters
+        string getcontraseñaOfc();
+        void setcontraseñaOfc(string contraseñaOfc1);
+        void registrar();
+        bool comparar();
+};
+
+usuario::usuario(){
+    contraseñaOfc="";
+}
+
+string usuario::getcontraseñaOfc() {
+    return contraseñaOfc;
+}
+
+void setcontraseñaOfc(string contraseñaOfc1) {
+    contraseñaOfc=contraseñaOfc1;
+}
+
+
+
+void registrar() {
+            string pass;
+            cout<<"Ingrese la contrasenha: ";
+            cin>>pass;
+            setcontraseñaOfc(pass);
+        }
+        
+bool comparar(){
+    string contraseñaInt;
+    cout<<"Verificar si la contrasenha es la misma: ";
+    cin>>contraseñaInt;
+    if(contraseñaInt==getcontraseñaOfc) {
+        return true;
+    return false;
+    }
+}        
+
+int main() {
+    usuario u; // llama al constructor
+    u.registrar();
+    if (u.comparar())
+        cout<<"Puedes ingresar ";
+    cout<<"Error ";
+    return 0;
+}
