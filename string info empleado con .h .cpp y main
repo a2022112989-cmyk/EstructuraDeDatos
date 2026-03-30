@@ -1,0 +1,98 @@
+//Empleado.h
+#include <string>
+using namespace std;
+
+class Empleado {
+private:
+    string nombre;
+    string apellido;
+    string correo;
+    string cargo;
+
+public:
+    Empleado(string n, string a, string c);
+    void generarCorreo();
+   void mostrarInformacion();
+   void cambiarCargo(string nuevoCargo);
+  void corregirApellido(string nuevoApellido);
+  void depurarNombre();   
+ };
+
+
+
+
+
+
+//cpp de la clase
+#include “Empleado.h”
+#include <string>
+using namespace std;
+Empleado::Empleado(string n, string a, string c) {
+        nombre = n;
+        apellido = a;
+        cargo = c;
+        generarCorreo();
+    }
+    void Empleado::generarCorreo() {
+        // ejemplo de uso de string: concatenar, convertir a minúscula
+        correo = nombre + "." + apellido + "@empresa.com";
+
+        // Convertimos a minúscula (simplificado: solo la primera letra)
+        if (correo[0] >= 'A' && correo[0] <= 'Z') {
+            correo[0] += 32;
+        }
+    }
+
+    Void Empleado::mostrarInformacion() {
+        cout << "Nombre completo: " << nombre << " " << apellido << endl;
+        cout << "Correo: " << correo << endl;
+        cout << "Cargo: " << cargo << endl;
+        cout << "Longitud del nombre: " << nombre.length() << endl;
+        cout << "Inicial del apellido: " << apellido.substr(0, 1) << endl;
+        cout << "¿'@' está en el correo?: ";
+        cout << (correo.find('@') != string::npos ? "Sí" : "No") << endl;
+        cout << endl;
+    }
+
+    void Empleado::cambiarCargo(string nuevoCargo) {
+        cout << "Cargo anterior: " << cargo << endl;
+        cargo = nuevoCargo;
+        cout << "Cargo actualizado: " << cargo << endl << endl;
+    }
+
+    void Empleado::corregirApellido(string nuevoApellido) {
+        cout << "Corrigiendo apellido..." << endl;
+        apellido = nuevoApellido;
+        generarCorreo(); // regeneramos correo
+    }
+
+    void Empleado::depurarNombre() {
+        cout << "Nombre original: " << nombre << endl;
+        if (!nombre.empty()) {
+            nombre.erase(0, 1); // eliminar primera letra
+            nombre.insert(0, "Sr. "); // insertar título
+        }
+        cout << "Nombre después de depurar: " << nombre << endl;
+    }
+
+
+
+//Main 
+
+int main() {
+    Empleado e1("Juan", "Perez", "Analista");
+    e1.mostrarInformacion();
+    e1.cambiarCargo("Jefe de Proyecto");
+    e1.corregirApellido("Peréz-Ramirez");
+    e1.mostrarInformacion();
+    e1.depurarNombre();
+
+  Empleado e2(“Emanuel”, “Romero”, “Inversor”);
+ e2.mostrarInformacion();
+    e2.cambiarCargo("Administrador de ventas");
+    e2.corregirApellido("Romero-Lopez");
+    e2.mostrarInformacion();
+    e2.depurarNombre();
+
+    return 0;
+}
