@@ -16,6 +16,10 @@ public:
    void cambiarCargo(string nuevoCargo);
   void corregirApellido(string nuevoApellido);
   void depurarNombre();   
+  string apellidoNombre();
+//getter, setter
+    string getnombre();
+    void setnombre(string NuevoNombre);
  };
 
 
@@ -75,17 +79,30 @@ Empleado::Empleado(string n, string a, string c) {
         cout << "Nombre después de depurar: " << nombre << endl;
     }
 
+    string Empleado::apellidoNombre() {
+        return apellido+""nombre;
+    }
 
-
+    string Empleado::getnombre() {
+        return nombre;
+    }
+    void Empleado::setnombre(string NuevoNombre){
+        nombre=nuevonombre;
+    }
 //Main 
 
 int main() {
+string NuevoNombre;
     Empleado e1("Juan", "Perez", "Analista");
     e1.mostrarInformacion();
     e1.cambiarCargo("Jefe de Proyecto");
     e1.corregirApellido("Peréz-Ramirez");
     e1.mostrarInformacion();
     e1.depurarNombre();
+    cout<<"El apellido mas nombres es: "<<e1.apellidoNombre();
+    cout<<"Ingrese el nuevo nombre: ";
+    cin>>NuevoNombre;
+    e1.setnombre(NuevoNombre);
 
   Empleado e2(“Emanuel”, “Romero”, “Inversor”);
  e2.mostrarInformacion();
@@ -93,6 +110,6 @@ int main() {
     e2.corregirApellido("Romero-Lopez");
     e2.mostrarInformacion();
     e2.depurarNombre();
-
+    cout<<"El apellido mas nombres es: "e2.apellidoNombre();
     return 0;
 }
