@@ -1,0 +1,108 @@
+#include <iostream>
+using namespace std;
+    string InvertirFrase(string frase);
+    string QuitarVocales(string frase);
+    void IntercambiarPalabras(string &palabra, string &palabra1);
+
+
+int main() {
+    string frase;
+    string palabra, palabra1;
+    do{
+    cout << "--------Menu--------- ";
+        cout << "1. Invertir frase";
+    cout << "2. Quitar vocales";
+    cout << "3. Intercambiar palabras ";
+    cout << "4. Sacar una palabra (substring) ";
+    cout << "5. Contar vocales";
+    cout << "6. Quitar espacios";
+    cout << "7. Encontrar caracteres";
+    cout << "8. Longitud";
+    cout << "9. Comparar";
+    cout << "0. Salir";
+
+    cout << "Ingresa la opcion: ";
+    int op;
+    cin >> op;
+    switch (op) {
+    case 1: 
+        cout << "Ingrese la grase que desea invertir:";
+        getline(cin, frase);
+        cout << "La frase invertida es: " << InvertirFrase(frase);
+
+
+        break;
+
+    case 2:
+        cout << "Ingrese la frase para quitar las vocales:";
+        getline(cin, frase);
+        cout << "La frase sin vocales es: " << QuitarVocales(frase);
+        break;
+
+    case 3:
+        cout << "Ingrese la palabra:";
+        cin >> palabra;
+        cout << "Ingrese la segunda palabra: ";
+        cin >> palabra1;
+        IntercambiarPalabras(palabra, palabra1);
+        cout << "La nueva palabra 1 es: " << palabra;
+        cout << "La segunda palabra es: " << palabra1;
+
+        break;
+
+    case 4:
+
+        break;
+
+    case 5:
+
+        break;
+
+    case 6:
+
+        break;
+
+    case 7:
+
+        break;
+
+    case 8:
+
+        break;
+
+    case 9:
+
+        break;
+
+    case 0:
+        break;
+    default:
+        cout << "Opcion invalida" << endl;
+
+    }
+    } while (op != 0);
+
+    
+    string InvertirFrase(string frase) {
+        string fraseinvertida = "";
+        longitud = frase.length();
+        for (int i = 0; i < longitud / 2; i++) {
+            aux = nombre[i];
+            nombre[i] = nombre[longitud - 1 - i];
+            nombre[longitud - 1 - i] = aux;
+        }
+        cout << "La cadena invertida es: " << nombre << endl;
+    }
+
+    string QuitarVocales(string frase) {
+        string aux = "";
+        longitud = frase.length();
+        for (int i = 0; i < longitud; i++)
+            if (frase[i] != 'a' && frase[i] != 'e' && frase[i] != 'i' && frase[i] != 'o' && frase[i] != 'u')
+                aux += frase[i];
+        return aux;
+    }
+
+    void IntercambiarPalabras(string& palabra, string& palabra1) {
+        palabra1.swap(palabra);
+    }
