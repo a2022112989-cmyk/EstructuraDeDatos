@@ -1,0 +1,114 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+#define MAX_SIZE 256
+
+class Queue {
+private:
+    int cabeza;
+    int cola;
+    int ITEMS;
+    vector<char> alma;
+
+public:
+    Queue();
+    ~Queue();
+    int empty();
+    int put(char d);
+    int get();
+    int size();
+};
+
+Queue::Queue() {
+    cabeza = 0;
+    cola = 0;
+    ITEMS = 0;
+    alma.resize(MAX_SIZE);
+}
+
+Queue::~Queue() {}
+
+int Queue::empty() { return ITEMS == 0; }
+
+int Queue::put(char d) {
+    if (ITEMS == MAX_SIZE) return -1;
+    if (cola >= MAX_SIZE) { cola = 0; }
+    alma[cola] = d;
+    cola++;
+    ITEMS++;
+    return d;
+}
+
+int Queue::get() {
+    if (empty()) return -1;
+    if (cabeza >= MAX_SIZE) { cabeza = 0; }
+    char d = alma[cabeza];
+    cabeza++;
+    ITEMS--;
+    return (int)d;
+}
+
+int Queue::size() { return ITEMS; }
+
+
+int main() {
+    Queue q;
+    char opcion; // <-- EL TRUCO: Ahora es char en lugar de int
+
+    do {
+        // Un separador grande para simular una pantalla limpia de forma natural
+        cout << "\n\n================================\n";
+        cout << "            MENU\n";
+        cout << "================================\n";
+        cout << "1. Enqueue (Insertar)\n";
+        cout << "2. Dequeue (Extraer)\n";
+        cout << "3. Size (Tamaño)\n";
+        cout << "4. Is empty (Vacia?)\n";
+        cout << "0. Salir\n";
+        cout << "Opcion: ";
+        cin >> opcion;
+
+        cout << "\n--- RESULTADO ---\n";
+
+        // Ahora evaluamos caracteres ('1', '2') en lugar de numeros (1, 2)
+        switch(opcion) {
+            case '1': {
+                char d;
+                cout << "Ingresa char: ";
+                cin >> d;
+                if(q.put(d) == -1) cout << "-> Error: Cola llena\n";
+                else cout << "-> Enqueued: " << d << "\n";
+                break;
+            }
+            case '2': {
+                int val = q.get();
+                if(val == -1) cout << "-> Error: Cola vacia\n";
+                else cout << "-> Dequeued: " << (char)val << "\n";
+                break;
+            }
+            case '3': {
+                cout << "-> Size: " << q.size() << "\n";
+                break;
+            }
+            case '4': {
+                cout << "-> Empty: " << (q.empty() ? "Yes" : "No") << "\n";
+                break;
+            }
+            case '0':
+                cout << "-> Saliendo del programa...\n";
+                break;
+            default:
+                cout << "-> Opcion invalida\n";
+        }
+        
+        // Se imprimirá este pie antes de volver a lanzar el menú
+        if(opcion != '0') {
+            cout << "--------------------------------\n";
+        }
+
+    } while(opcion != '0');
+
+    return 0;
+}
