@@ -1,0 +1,157 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+#define MAX 100
+using TipoDato = string; // ahora es string
+
+class Pila
+{
+private:
+    TipoDato pila[MAX]; // ahora almacena strings
+    int cima;
+
+public:
+    Pila();
+    bool Apilar(const TipoDato& elemento); // mejor por const ref
+    bool Desapilar();
+    bool CimaPila(TipoDato& elemento);
+    void LimpiarPila();
+    void VerPila();
+    bool PilaVacia();
+    bool Iguales(Pila p);
+};
+
+// IMPLEMENTACIÓN
+
+Pila::Pila()
+{
+    cima = -1;
+}
+
+bool Pila::Apilar(const TipoDato& elemento)
+{
+    if (cima == MAX - 1)
+    {
+        cout << "Desbordamiento de Pila (Overflow)" << endl;
+        return false;
+    }
+
+    pila[++cima] = elemento;
+    return true;
+}
+
+bool Pila::Desapilar()
+{
+    if (cima == -1)
+    {
+        cerr << "Underflow: pila vacia" << endl;
+        return false;
+    }
+
+    cima--;
+    return true;
+}
+
+bool Pila::CimaPila(TipoDato& elemento)
+{
+    if (PilaVacia())
+    {
+        cerr << "Underflow: pila vacia" << endl;
+        return false;
+    }
+
+    elemento = pila[cima];
+    return true;
+}
+
+void Pila::VerPila()
+{
+    for (int i = 0; i <= cima; i++)
+        cout << pila[i] << endl;
+}
+
+bool Pila::PilaVacia()
+{
+    return cima == -1;
+}
+
+void Pila::LimpiarPila()
+{
+    cima = -1;
+}
+
+bool Pila::Iguales(Pila p)
+{
+    if (cima != p.cima)
+        return false;
+
+    for (int i = 0; i <= cima; i++)
+        if (pila[i] != p.pila[i])
+            return false;
+
+    return true;
+}
+
+// MAIN
+
+int main()
+{
+    string r; // ahora es string
+    int op;
+    Pila p1, p2;
+
+    do {
+        cout << "\n--------Menu---------\n";
+        cout << "1. Apilar datos push\n";
+        cout << "2. Desapilar datos pop\n";
+        cout << "3. Ver cima de la pila\n";
+        cout << "4. Pila vacia\n";
+        cout << "5. Iguales dos pilas\n";
+        cout << "6. Ver Pila\n";
+        cout << "7. Limpiar Pila\n";
+        cout << "0. Salir\n";
+
+        cout << "Ingresa la opcion: ";
+        cin >> op;
+
+        switch (op) {
+        case 1:
+            cout << "Ingrese el dato a apilar: ";
+            cin >> r; // lee string (sin espacios)
+            if (p1.Apilar(r))
+                cout << "Dato apilado correctamente\n";
+            break;
+
+        case 2:
+            if (p1.Desapilar())
+                cout << "Se desapilo correctamente\n";
+            break;
+
+        case 3:
+            if (p1.CimaPila(r))
+                cout << "Cima: " << r << endl;
+            break;
+
+        case 4:
+            cout << (p1.PilaVacia() ? "Pila vacia\n" : "Pila con elementos\n");
+            break;
+
+        case 5:
+            cout << (p1.Iguales(p2) ? "Son iguales\n" : "Son diferentes\n");
+            break;
+
+        case 6:
+            p1.VerPila();
+            break;
+
+        case 7:
+            p1.LimpiarPila();
+            break;
+
+        }
+
+    } while (op != 0);
+
+    return 0;
+}
