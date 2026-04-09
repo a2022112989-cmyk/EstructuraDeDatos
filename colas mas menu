@@ -93,7 +93,12 @@ int main() {
                 break;
             }
             case '4': {
-                cout << "-> Empty: " << (q.empty() ? "Yes" : "No") << "\n";
+                 if ( q.empty() == 1 ) {
+                    cout << "Yes" << "\n";
+                } else {
+                    cout << "No" << "\n";
+                }
+                
                 break;
             }
             case '0':
