@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int    *p; //puntero puntero
+    int x=10;
+    p=&x;
+    cout<<p<<endl;
+    cout<<*p<<endl;
+    *p=50;
+    cout<<p<<endl;
+    cout<<*p<<endl;
+    p= (int*) malloc(sizeof(int));
+    cout<<p<<endl;
+    cout<<*p<<endl;
+    
+
+    return 0;
+}
