@@ -1,0 +1,113 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    int opcion;
+    string texto;
+    string nombreArchivo = "clase_datos.txt";
+    
+
+    do {
+        // system("clear"); // Descomenta esta linea si usas Linux/Mac o system("cls"); en Windows para limpiar pantalla
+        cout << "========================================" << endl;
+        cout << "   MENU DE ARCHIVOS EN C++ (EN VIVO)    " << endl;
+        cout << "========================================" << endl;
+        cout << "1. Crear/Sobrescribir archivo (ios::out)" << endl;
+        cout << "2. Leer todo el archivo (ios::in)" << endl;
+        cout << "3. Anadir texto al final (ios::app)" << endl;
+        cout << "4. Escribir en un byte espcecifico con punteros (ios::ate | ios::out)" << endl;
+        cout << "0. Salir" << endl;
+        cout << "========================================" << endl;
+        cout << "Elige una opcion: ";
+        cin >> opcion;
+        cin.ignore(); // IMPORTANTE: Limpia el buffer del 'Enter' que acabamos de dar
+
+        switch (opcion) {
+            case 1: { // ios::out
+                ofstream archivoOut(nombreArchivo, ios::out);
+                if (archivoOut.is_open()) {
+                    cout << "Escribe el texto inicial del archivo: ";
+                    getline(cin, texto);
+                    archivoOut << texto << endl;
+                    archivoOut.close();
+                    cout << ">> Archivo creado y guardado con exito.\n";
+                }
+                
+                break;
+            }
+            case 2: { // ios::in
+                ifstream archivoIn(nombreArchivo, ios::in);
+                if (archivoIn.is_open()) {
+                    cout << "\n--- CONTENIDO DEL ARCHIVO ---\n";
+                    while (getline(archivoIn, texto)) {
+                        cout << texto << endl;
+                    }
+                    archivoIn.close();
+                    cout << "-----------------------------\n";
+                } else {
+                    cout << ">> Error: El archivo no existe. Crea uno primero (Opcion 1).\n";
+                }
+                
+                break;
+            }
+            case 3: { // ios::app
+                ofstream archivoApp(nombreArchivo, ios::app);
+                if (archivoApp.is_open()) {
+                    cout << "Escribe el texto a anadir al final: ";
+                    getline(cin, texto);
+                    archivoApp << texto << endl;
+                    archivoApp.close();
+                    cout << ">> Texto anadido exitosamente.\n";
+                }
+                
+                break;
+            }
+            case 4: { // Escritura con Punteros (Acceso Aleatorio)
+                // Usamos fstream con in | out para no borrar el archivo
+                // Usamos ate para que al abrir, nos diga el tamaño total inicial
+                fstream archivoPtr(nombreArchivo, ios::in | ios::out | ios::ate);
+                
+                if (archivoPtr.is_open()) {
+                    // 1. Mostrar tamaño total / posición final
+                    cout << "\n>> El archivo tiene un tamano actual de: " << archivoPtr.tellp() << " bytes.\n";
+                    
+                    // 2. Pedir al usuario a qué byte quiere ir
+                    int byteDestino;
+                    cout << "Ingresa el numero de byte exacto donde deseas escribir: ";
+                    cin >> byteDestino;
+                    
+                    // 3. Mover el puntero (seekp = buscar para poner)
+                    archivoPtr.seekp(byteDestino, ios::beg);
+                    cout << ">> Puntero teletransportado al byte " << archivoPtr.tellp() << ".\n";
+                    
+                    // 4. Pedir el texto y escribir
+                    cout << "Escribe el texto para sobreescribir desde esta posicion: ";
+                    cin.ignore(); // Limpiamos el 'Enter' del cin anterior
+                    getline(cin, texto);
+                    
+                    archivoPtr << texto;
+                    
+                    archivoPtr.close();
+                    cout << ">> Texto guardado exitosamente en el byte " << byteDestino << ".\n";
+                } else {
+                    cout << ">> Error: El archivo no existe. Crea uno primero (Opcion 1).\n";
+                }
+                
+                break;
+            }
+            
+            case 0:
+                cout << "\nCerrando programa. ¡Gracias por su atencion!" << endl;
+                break;
+            default:
+                cout << "\nOpcion no valida. Intenta de nuevo." << endl;
+                
+                break;
+        }
+    } while (opcion != 0);
+
+    return 0;
+}
