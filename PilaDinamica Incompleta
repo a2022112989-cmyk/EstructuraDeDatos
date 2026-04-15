@@ -1,0 +1,70 @@
+#include "Pila.h"
+
+Pila::Pila() {
+	tope = NULL;
+}
+
+void Pila::push() {
+	int valor;
+	string valor2;
+	Nodo* aux = new Nodo;
+	system("cls");
+	cout << "Ingresa el ID del proceso";
+	cin >> valor;
+	cin.ignore();
+	cout << "Ingresa el nombre del proceso";
+	getline(cin, valor2);
+	aux->dato = valor;
+	aux->nombre = valor2;
+	aux->sig = NULL;
+
+	if (tope != NULL)
+		aux->sig = tope;
+	tope = aux;
+	cout << "Nuevo proceso insertado";
+}
+
+void Pila::pop() {
+
+}
+
+void show() {
+
+}
+void top() {
+
+}
+void size() {
+
+}
+#pragma once
+#include "Nodo.h"
+class Pila
+{
+	Nodo* tope;
+public:
+	Pila();
+	void push();
+	void pop();
+	void show();
+	void top();
+	void size();
+};
+#pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+class Nodo
+{
+public:
+	int dato;
+	string nombre;
+	Nodo* sig;
+};
+#include <iostream>
+using namespace std;
+
+int main()
+{
+   
+}
