@@ -21,24 +21,24 @@ string usuario::getcontraseñaOfc() {
     return contraseñaOfc;
 }
 
-void setcontraseñaOfc(string contraseñaOfc1) {
+void usuario::setcontraseñaOfc(string contraseñaOfc1) {
     contraseñaOfc=contraseñaOfc1;
 }
 
 
 
-void registrar() {
+void usuario::registrar() {
             string pass;
             cout<<"Ingrese la contrasenha: ";
             cin>>pass;
             setcontraseñaOfc(pass);
         }
         
-bool comparar(){
+bool usuario::comparar(){
     string contraseñaInt;
     cout<<"Verificar si la contrasenha es la misma: ";
     cin>>contraseñaInt;
-    if(contraseñaInt==getcontraseñaOfc) {
+    if(contraseñaInt==getcontraseñaOfc()) {
         return true;
     return false;
     }
@@ -49,6 +49,6 @@ int main() {
     u.registrar();
     if (u.comparar())
         cout<<"Puedes ingresar ";
-    cout<<"Error ";
+    else cout<<"Error ";
     return 0;
 }
