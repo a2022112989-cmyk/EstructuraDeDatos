@@ -11,7 +11,7 @@ int main() {
     
 
     do {
-        // system("clear"); // Descomenta esta linea si usas Linux/Mac o system("cls"); en Windows para limpiar pantalla
+        
         cout << "========================================" << endl;
         cout << "   MENU DE ARCHIVOS EN C++ (EN VIVO)    " << endl;
         cout << "========================================" << endl;
@@ -80,7 +80,7 @@ int main() {
                     cin >> byteDestino;
                     
                     // 3. Mover el puntero (seekp = buscar para poner)
-                    archivoPtr.seekp(byteDestino, ios::beg);
+                    archivoPtr.seekp(byteDestino, ios::beg); // (cuanto, desde donde) ios:beginning
                     cout << ">> Puntero teletransportado al byte " << archivoPtr.tellp() << ".\n";
                     
                     // 4. Pedir el texto y escribir
