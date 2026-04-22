@@ -1,0 +1,124 @@
+#pragma once
+#include <iostream>
+#include <string>
+#include "Dato.h"
+using namespace std;
+class Nodo
+{
+    public:
+        Dato dato;
+        Nodo* puntero;
+
+        Nodo() { //Constructor de la clase
+            puntero = NULL;
+        }
+};
+
+void Encolar(Nodo*& inicio, Nodo*& fin) { //Punteros enviados por referencia      
+    Nodo* Elemento = new Nodo; //Creacion del nodo      
+    if (inicio == NULL) {
+
+        inicio = fin = Elemento; //Le asigno la direccion del primer nodo          
+        cout << "ID: "; cin >> Elemento->dato.ID;
+        cout << "Titulo: "; cin >> Elemento->dato.Titulo;
+        cout << "Precio: "; cin >> Elemento->dato.Precio;
+
+
+    }
+    else {
+
+        fin->puntero = Elemento; //Asigno el puntero del anterior elemento al nuevo
+
+        fin = Elemento; //Cambio la direccion del ultimo nodo creado 
+
+        cout << "ID: "; cin >> Elemento->dato.ID;
+        cout << "Titulo: "; cin >> Elemento->dato.Titulo;
+        cout << "Precio: "; cin >> Elemento->dato.Precio;
+
+    }
+
+} 
+void Desencolar(Nodo*& inicio) {
+    if (inicio != NULL) {
+        cout << "ID: " << inicio->dato.ID << endl;
+        cout << "Titulo: " << inicio->dato.Titulo << endl;
+        cout << "Precio: " << inicio->dato.Precio << endl;
+        inicio = inicio->puntero; // Cambio Inicio al siguiente nodo
+    }
+    else {
+        cout << "La cola se encuentra vacia" << endl;
+    }
+}
+
+void Mostrar(Nodo*& inicio) {
+    Nodo* aux1 = inicio;
+    if (aux1 != NULL) {
+        while (aux1) {
+
+            cout << "ID: " << aux1->dato.ID << endl;
+            cout << "Titulo: " << aux1->dato.Titulo << endl;
+            cout << "Precio: " << aux1->dato.Precio << endl;
+            aux1 = aux1->puntero; // Cambio Inicio al siguiente nodo
+        }
+    }
+    else {
+        cout << "La cola se encuentra vacia" << endl;
+    }
+
+}
+#pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+class Dato
+{
+public:
+    int ID;
+    string Titulo;
+    double Precio;
+    Dato() {
+        ID = 0;
+        Titulo = "Unknow";
+        Precio = 0;
+    }
+};
+#include <iostream>
+#include "Dato.h"
+#include "Nodo.h" //Se incluye a la clase Nodo
+using namespace std;
+int main(int argc, char* argv[]) {
+    Nodo* inicio = NULL, * fin = NULL; //Punteros libres para el manejo de la cola
+    int opc = 0, respuesta = 0;
+    do {
+        cout << "1. LA COLA ESTA VACIA?" << endl;
+        cout << "2. ENCOLAR" << endl;
+        cout << "3. DESENCOLAR" << endl;
+        cout << "4. MOSTRAR COLA" << endl;
+        cout << "0. SALIR" << endl;
+        cout << "Opcion: "; cin >> opc;
+
+
+        switch (opc) {
+        case 1:
+            if (inicio == NULL)
+                cout << "La cola se encuentra vacia" << endl;
+            else
+                cout << "Existe elemento(s) dentro de la cola" << endl;
+            break;
+        case 2:
+            Encolar(inicio, fin);
+            break;
+        case 3:
+            Desencolar(inicio);
+            break;
+
+        case 4:
+            Mostrar(inicio);
+            break;
+        }
+
+    }while (opc != 0);
+
+
+    return 0;
+}
