@@ -1,0 +1,152 @@
+#pragma once
+#include <iostream>
+#include <conio.h>
+typedef char DATA_TYPE;
+class Nodo
+{
+public:
+	DATA_TYPE data;
+	Nodo* next, * prev;
+};
+#pragma once
+#include "Nodo.h"
+class DDqueue
+{
+    int  itemsize, items;
+    Nodo* cola, * cabeza;
+
+
+public:
+    // constructor
+    DDqueue() : cola(NULL), cabeza(NULL), items(0), itemsize(sizeof(DATA_TYPE)) {}
+
+    // destructor
+    ~DDqueue() {}
+    DATA_TYPE put_back(DATA_TYPE valor);
+    DATA_TYPE put_front(DATA_TYPE vlaor);
+    int empty();
+    DATA_TYPE get_front();
+    DATA_TYPE get_back();
+};
+#include "DDqueue.h"
+#include "Nodo.h"
+#include <iostream>
+using namespace std;
+
+DATA_TYPE DDqueue::put_back(DATA_TYPE valor)
+{
+    Nodo* temp;
+
+    temp = new Nodo;
+    if (temp == NULL) return -1;
+
+    temp->data = valor;
+
+    items++;
+    if (cabeza == NULL)
+    {
+        temp->next = NULL;
+        temp->prev = NULL;
+        cabeza = temp;
+        cola = temp;
+    }
+    else
+    {
+        cola->next = temp;
+        temp->prev = cola;
+        cola = temp;
+        cola->next = NULL;
+    }
+    return valor;
+}
+
+/* agregar componente en la parte frontal de la lista */
+DATA_TYPE DDqueue::put_front(DATA_TYPE valor)
+{
+    Nodo* temp;
+
+    temp = new Nodo;
+    if (temp == NULL) return -1;
+
+    temp->data = valor;
+
+    items++;
+    if (cabeza == NULL)
+    {
+        temp->next = NULL;
+        temp->prev = NULL;
+        cabeza = temp;
+        cola = temp;
+    }
+    else
+    {
+        cabeza->prev = temp;
+        temp->next = cabeza;
+        cabeza = temp;
+        cabeza->prev = NULL;
+    }
+    return valor;
+}
+
+// regresa true si la lista está vacia
+int DDqueue::empty() { return items == 0; }
+
+
+/* retirar elemento de la parte frontal lista */
+DATA_TYPE DDqueue::get_front()
+{
+    Nodo* temp;
+    DATA_TYPE d;
+
+    if (empty()) return -1;
+
+    items--;
+    d = cabeza->data;
+    temp = cabeza->next;
+    if (cabeza) delete cabeza;
+    cabeza = temp;
+    return d;
+}
+
+/* retirar elemento de la parte tracera de la lista */
+DATA_TYPE DDqueue::get_back()
+{
+    Nodo* temp;
+    DATA_TYPE d;
+
+    if (empty()) return -1;
+
+    items--;
+    d = cola->data;
+    temp = cola->prev;
+    if (cola) delete cola;
+    cola = temp;
+    return d;
+}
+// Diego Rodas Ugarte fecha 29/04/26
+using namespace std;
+#include "DDqueue.h"
+#include "Nodo.h"
+#include <iostream>
+#include <conio.h>
+
+int main()
+{
+
+    DDqueue s;
+    DATA_TYPE d;
+
+    // insertando elementos en la parte tracera
+    for (d = 'A'; d <= 'Z'; d++) s.put_back(d);
+
+    // insertando en la parte delantera
+    for (d = 9; d >= 0; d--)s.put_front(d + '0');
+
+    // vaciando la lista
+    while (!s.empty())
+        cout << (DATA_TYPE)s.get_front() << " ";
+
+    cout << "\nPara terminar presione <Enter>...";
+    cin.get();
+    return 0;
+}
