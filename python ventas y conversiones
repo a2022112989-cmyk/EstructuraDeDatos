@@ -1,0 +1,150 @@
+import tkinter as tk
+from tkinter import messagebox
+
+
+def bolivianos_a_soles():
+    try:
+        bolivianos = float(entry_monto.get())
+        compra_usdt_bs = float(entry_compra_usdt_bs.get())
+        venta_usdt_soles = float(entry_venta_usdt_soles.get())
+        comision_pct = float(entry_comision.get())
+
+        if comision_pct < 0 or comision_pct > 100:
+            raise ValueError
+
+        usdt = bolivianos / compra_usdt_bs
+
+        # Comisión
+        comision_usdt = usdt * (comision_pct / 100)
+        comision_bs = comision_usdt * compra_usdt_bs
+
+        usdt_final = usdt - comision_usdt
+        soles = usdt_final * venta_usdt_soles
+
+        resultado.set(
+            "=== RESULTADO ===\n\n"
+            f"Monto inicial: Bs {bolivianos:.2f}\n"
+            f"USDT obtenidos: {usdt_final:.4f}\n"
+            f"Total en Soles: S/ {soles:.2f}\n\n"
+            "=== COMISIÓN ===\n\n"
+            f"Porcentaje: {comision_pct}%\n"
+            f"Comisión en USDT: {comision_usdt:.4f}\n"
+            f"Comisión en Bs: {comision_bs:.2f}"
+        )
+
+    except ValueError:
+        messagebox.showerror("Error", "Datos inválidos. Verifica números y comisión (0-100).")
+
+
+def soles_a_bolivianos():
+    try:
+        soles = float(entry_monto.get())
+        compra_usdt_bs = float(entry_compra_usdt_bs.get())
+        venta_usdt_soles = float(entry_venta_usdt_soles.get())
+        comision_pct = float(entry_comision.get())
+
+        if comision_pct < 0 or comision_pct > 100:
+            raise ValueError
+
+        usdt = soles / venta_usdt_soles
+
+        # Comisión
+        comision_usdt = usdt * (comision_pct / 100)
+        comision_bs = comision_usdt * compra_usdt_bs
+
+        usdt_total = usdt + comision_usdt
+        bolivianos = usdt_total * compra_usdt_bs
+
+        resultado.set(
+            "=== RESULTADO ===\n\n"
+            f"Monto deseado: S/ {soles:.2f}\n"
+            f"USDT necesarios: {usdt_total:.4f}\n"
+            f"Total a pagar: Bs {bolivianos:.2f}\n\n"
+            "=== COMISIÓN ===\n\n"
+            f"Porcentaje: {comision_pct}%\n"
+            f"Comisión en USDT: {comision_usdt:.4f}\n"
+            f"Comisión en Bs: {comision_bs:.2f}"
+        )
+
+    except ValueError:
+        messagebox.showerror("Error", "Datos inválidos. Verifica números y comisión (0-100).")
+
+
+# Ventana principal
+ventana = tk.Tk()
+ventana.title("Calculadora Bs - USDT - Soles")
+
+# 🔹 Ventana más grande
+ventana.geometry("520x600")
+ventana.resizable(False, False)
+
+# Título
+tk.Label(
+    ventana,
+    text="Calculadora Bs ⇄ USDT ⇄ Soles",
+    font=("Arial", 16, "bold")
+).pack(pady=15)
+
+# Inputs
+tk.Label(ventana, text="Monto a convertir:", font=("Arial", 11)).pack()
+entry_monto = tk.Entry(ventana, font=("Arial", 12), justify="center")
+entry_monto.pack(pady=5)
+
+tk.Label(
+    ventana,
+    text="Precio de compra de 1 USDT en Bs:",
+    font=("Arial", 11)
+).pack()
+entry_compra_usdt_bs = tk.Entry(ventana, font=("Arial", 12), justify="center")
+entry_compra_usdt_bs.pack(pady=5)
+
+tk.Label(
+    ventana,
+    text="Precio de venta de 1 USDT en Soles:",
+    font=("Arial", 11)
+).pack()
+entry_venta_usdt_soles = tk.Entry(ventana, font=("Arial", 12), justify="center")
+entry_venta_usdt_soles.pack(pady=5)
+
+tk.Label(
+    ventana,
+    text="Comisión (%):",
+    font=("Arial", 11)
+).pack()
+entry_comision = tk.Entry(ventana, font=("Arial", 12), justify="center")
+entry_comision.pack(pady=5)
+
+# Botones
+frame_botones = tk.Frame(ventana)
+frame_botones.pack(pady=15)
+
+tk.Button(
+    frame_botones,
+    text="Bs → Soles",
+    font=("Arial", 11, "bold"),
+    width=20,
+    command=bolivianos_a_soles
+).grid(row=0, column=0, padx=5)
+
+tk.Button(
+    frame_botones,
+    text="Soles → Bs",
+    font=("Arial", 11, "bold"),
+    width=20,
+    command=soles_a_bolivianos
+).grid(row=0, column=1, padx=5)
+
+# Resultado
+resultado = tk.StringVar()
+resultado.set("El resultado aparecerá aquí.")
+
+tk.Label(
+    ventana,
+    textvariable=resultado,
+    font=("Courier", 11),  # fuente más alineada
+    justify="left",
+    fg="blue",
+    anchor="w"
+).pack(padx=20, pady=20, fill="both")
+
+ventana.mainloop()
